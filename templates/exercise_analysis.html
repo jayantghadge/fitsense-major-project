@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise Analysis</title>
+  </head>
+  <body>
+    <section class="exercise-list">
+      <h2>Available Exercises</h2>
+      <ul>
+        {% for exercise in exercises %}
+        <li>
+          <h3>{{ exercise.name }}</h3>
+          <p>{{ exercise.description }}</p>
+          <a href="/estimate/{{ exercise.name|lower }}"
+            >Estimate {{ exercise.name }} Accuracy</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+  </body>
+</html>
