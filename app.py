@@ -1,8 +1,9 @@
 from flask import Flask, render_template
+from flask import request, redirect, url_for, session
 import subprocess
 import os
-import threading
 app = Flask(__name__)
+app.secret_key = 'dfhjdjd89d'
 
 exercises = [
     {"name": "Push-up", "area": "Chest, Shoulders, Triceps",
@@ -26,6 +27,8 @@ exercises = [
 ]
 
 opencv_window_status = {}
+username = "jayant"
+password = "ghadge"
 
 
 def run_exercise_analysis(exercise_name):
@@ -50,15 +53,33 @@ def estimate_exercise_accuracy(exercise_name):
 
 @app.route('/')
 def exercise_list():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     return render_template('exercise_analysis.html', exercises=exercises)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        entered_username = request.form.get(
+            'username')
+        entered_password = request.form.get(
+            'password')
+
+        if entered_username == username and entered_password == password:
+            session['logged_in'] = True
+            return redirect('/')
+    return render_template('login.html')
 
 
 @app.route('/exercise_pose/<exercise_name>')
 def exercise_pose(exercise_name):
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+
     exercise = next(
         (e for e in exercises if e["name"].lower() == exercise_name), None)
     if exercise:
-        # Pass exercise_name and exercise_area to the HTML template
         return render_template('exercise_pose.html', exercise_name=exercise_name, exercise_area=exercise["area"])
     else:
         return "Exercise not found"
@@ -66,6 +87,9 @@ def exercise_pose(exercise_name):
 
 @app.route('/exercise_result/<exercise_name>')
 def exercise_result(exercise_name):
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+
     if exercise_name in opencv_window_status and opencv_window_status[exercise_name]:
         return "Waiting for the OpenCV window to close..."
     else:
