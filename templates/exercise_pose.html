@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Pose</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='pose.css') }}"
+    />
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="#">Home</a>
+      <a href="#">Exercises</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="pose-container">
+      <h2>Exercise Pose</h2>
+      <p>Exercise: {{ exercise_name }}</p>
+      <div class="info">
+        <img
+          src="{{ url_for('static', filename='img/' + exercise_name|lower + '.gif') }}"
+          alt="{{ exercise_name }}"
+        />
+        <div class="">
+          <h3>Targeted Area: {{ exercise_area }}</h3>
+          <span>
+            <form
+              action="/exercise_result/{{ exercise_name|lower }}"
+              method="GETq"
+            >
+              <input type="submit" value="Start Exercise" />
+            </form>
+
+            <form action="/end_exercise" method="POST">
+              <input type="submit" value="End Exercise" />
+            </form>
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

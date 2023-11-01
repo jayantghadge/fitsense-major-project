@@ -1,22 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Exercise Analysis</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitSense - Exercise Analysis</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css" />
   </head>
   <body>
-    <section class="exercise-list">
-      <h2>Available Exercises</h2>
-      <ul>
-        {% for exercise in exercises %}
-        <li>
-          <h3>{{ exercise.name }}</h3>
-          <p>{{ exercise.description }}</p>
-          <a href="/estimate/{{ exercise.name|lower }}"
-            >Estimate {{ exercise.name }} Accuracy</a
-          >
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
+    <div class="navbar">
+      <a href="#">Home</a>
+      <a href="#">Exercises</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="banner" style="position: relative; text-align: center">
+      <img
+        src="https://th.bing.com/th/id/OIG.uhlr6LqDNd_yNQvpTvFn?pid=ImgGn&w=1024&h=1024&rs=1"
+        alt="Banner Image"
+        style="width: 100%; height: 700px; object-fit: cover"
+      />
+      <div
+        class="overlay"
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(
+            0,
+            0,
+            0,
+            0.6
+          ); /* Adjust the last value (0.6) for opacity */
+        "
+      ></div>
+      <div
+        style="
+          text-align: left;
+          position: absolute;
+          top: 50%;
+          left: 20%;
+          transform: translate(-50%, -50%);
+          color: white;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <h1>FitSense<b>AI</b></h1>
+        <p>Empowering Your Fitness Journey</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="exercise-list">
+        <h1 class="title">FitSense</h1>
+        <ul class="card-list">
+          {% for exercise in exercises %}
+          <li class="card">
+            <div class="card-content">
+              <div class="exercise-name">
+                <h3>{{ exercise.name }}</h3>
+              </div>
+              <div class="exercise-info">
+                <p class="info">
+                  <span class="badge-targeted-area"
+                    >Targeted Area: {{ exercise.area }}</span
+                  >
+                </p>
+                <p class="info">
+                  <span class="badge-difficulty"
+                    >Difficulty: {{ exercise.difficulty }}</span
+                  >
+                </p>
+              </div>
+
+              <div class="exercise-image">
+                <img
+                  src="static/img/{{ exercise.name }}.gif"
+                  alt="{{ exercise.name }}"
+                />
+              </div>
+              <a href="/exercise_pose/{{ exercise.name|lower }}" class="btn"
+                >Let's Workout</a
+              >
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+    </div>
+
+    <div class="footer">&copy; 2023 FitSense.</div>
   </body>
 </html>
