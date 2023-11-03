@@ -1,12 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #333; /* Dark background color */
+  background-color: #2d373b;
   color: white;
 }
 
 .navbar {
-  background-color: transparent;
+  background-color: #263238;
   position: fixed;
   top: 0;
   right: 0;
@@ -16,7 +16,7 @@ body {
 
 .navbar a {
   float: right;
-  font-size: 16px;
+  font-size: 26px;
   color: white;
   text-align: center;
   padding: 14px 16px;
@@ -70,6 +70,14 @@ input[type="submit"] {
   padding: 10px 20px;
   font-size: 18px;
   cursor: pointer;
+}
+
+p {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 25px;
 }
 
 input[type="submit"]:hover {

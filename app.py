@@ -20,10 +20,7 @@ exercises = [
     {"name": "Sit-ups", "area": "Core", "difficulty": "Easy", "calories_burnt": 40},
     {"name": "Leg Raises", "area": "Lower Abs",
         "difficulty": "Moderate", "calories_burnt": 70},
-    {"name": "Yoga Pose 1", "area": "Various",
-        "difficulty": "Varies", "calories_burnt": 80},
-    {"name": "Yoga Pose 2", "area": "Various",
-        "difficulty": "Varies", "calories_burnt": 90}
+
 ]
 
 opencv_window_status = {}

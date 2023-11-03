@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
@@ -11,8 +12,8 @@ def calculate_angle(a, b, c):
     a = np.array(a)
     b = np.array(b)
     c = np.array(c)
-    radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - \
-        np.arctan2(a[1]-b[1], a[0]-b[0])
+    radians = np.arctan2(c[1] - b[1], c[0] - b[0]) - \
+        np.arctan2(a[1] - b[1], a[0] - b[0])
     angle = np.abs(radians * 180.0 / np.pi)
     if angle > 180.0:
         angle = 360 - angle
@@ -22,6 +23,10 @@ def calculate_angle(a, b, c):
 POSE_THRESHOLD = 30
 count = 0
 stage = "up"
+target_angle = 90.0  # Set your target angle for squats
+
+# Accuracy variable
+accuracy = 0.0
 
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
     while cap.isOpened():
@@ -37,7 +42,6 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         try:
             landmarks = results.pose_landmarks.landmark
 
-            # Get coordinates for relevant landmarks
             left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,
                           landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
             left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,
@@ -56,10 +60,17 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 stage = "up"
                 count += 1
 
-            cv2.putText(image, f'Eka Pada Malasana Count: {count}', (
-                10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            # Calculate accuracy as the percentage of how closely the detected angle matches the target angle
+            accuracy = 100.0 - abs(target_angle - angle1)
+            accuracy = max(accuracy, 0.0)
+            accuracy = min(accuracy, 100.0)
+
+            cv2.putText(image, f'Squat Count: {count}', (10, 70),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.putText(image, f'Stage: {stage}', (10, 110),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            cv2.putText(image, f'Accuracy: {accuracy:.2f}%', (10, 150),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
         except:
             pass
@@ -69,14 +80,13 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                                       color=(245, 117, 66), thickness=2, circle_radius=2),
                                   mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2))
 
-        cv2.imshow('Eka Pada Malasana Detection', image)
+        cv2.imshow('Squat Detection', image)
 
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
 
-
 print(count)
-
+print(int(accuracy))
 
 cap.release()
 cv2.destroyAllWindows()
