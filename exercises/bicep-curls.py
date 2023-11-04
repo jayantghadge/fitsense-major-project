@@ -27,8 +27,7 @@ def calculate_angle(a, b, c):
 count = 0
 stage = None
 
-# Define the target angle (e.g., the correct elbow angle for the exercise)
-target_angle = 90.0  # You should set this to the correct target angle
+target_angle = 90.0  
 
 # Accuracy variable
 accuracy = 0.0
@@ -72,7 +71,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 stage = "up"
                 count += 1
 
-            # Calculate accuracy as the percentage of how closely the detected angle matches the target angle
+            # Calculate accuracy as the percentage 
             accuracy = 100.0 - abs(target_angle - angle)
             accuracy = max(accuracy, 0.0)
             accuracy = min(accuracy, 100.0)
@@ -105,7 +104,6 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         if key == ord('q'):
             break
 
-# After the OpenCV window is closed, you can print the number of repetitions and accuracy
 print(count)
 print(int(accuracy))
 
