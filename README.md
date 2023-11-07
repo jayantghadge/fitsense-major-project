@@ -10,6 +10,17 @@ FitSense is an innovative AI-powered gym trainer that assists users in maintaini
 - Accuracy Assessment: The AI assesses the user's form and provides feedback on the accuracy of their movements.
 - User-Friendly Interface: The web application offers an easy-to-use and intuitive interface.
 
+## Screenshots
+
+| Login Page | Home Page - Displaying list of all Exercises |
+| ------- | ------- |
+| ![output1](https://github.com/jayantghadge/fitsense-major-project/assets/88991259/a7d1aed8-877e-4257-bc63-d3e3d2b5a45c) | ![output2](https://github.com/jayantghadge/fitsense-major-project/assets/88991259/8fe4b071-b25d-4566-81b4-1144b5f83376) |
+
+
+| Real-time pose estimation | Dashboard |
+| ------- | ------- |
+| ![output3](https://github.com/jayantghadge/fitsense-major-project/assets/88991259/9ee4f9a7-b3b7-43ce-82b0-08bcaa9be580)| ![output4](https://github.com/jayantghadge/fitsense-major-project/assets/88991259/af887272-ca88-4545-bd1a-05bd08e3c36c) |
+
 ## Technologies Used
 
 - [MediaPipe](https://mediapipe.dev/): For real-time pose estimation.
