@@ -27,7 +27,11 @@ def calculate_angle(a, b, c):
 count = 0
 stage = None
 
+<<<<<<< HEAD
 target_angle = 90.0
+=======
+target_angle = 90.0  
+>>>>>>> 6b964447250138097481027b1c05fdb602c693c6
 
 # Accuracy variable
 accuracy = 0.0
@@ -71,7 +75,11 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 stage = "up"
                 count += 1
 
+<<<<<<< HEAD
             # Calculate accuracy as the percentage
+=======
+            # Calculate accuracy as the percentage 
+>>>>>>> 6b964447250138097481027b1c05fdb602c693c6
             accuracy = 100.0 - abs(target_angle - angle)
             accuracy = max(accuracy, 0.0)
             accuracy = min(accuracy, 100.0)
