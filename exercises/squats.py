@@ -20,10 +20,10 @@ def calculate_angle(a, b, c):
     return angle
 
 
-POSE_THRESHOLD = 30
+POSE_THRESHOLD = 120
 count = 0
 stage = "up"
-target_angle = 90.0  # Set your target angle for squats
+target_angle = 90.0
 
 # Accuracy variable
 accuracy = 0.0
@@ -49,19 +49,30 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,
                         landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
 
-            angle1 = calculate_angle(left_ankle, left_knee, left_hip)
+            right_ankle = [landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,
+                           landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
+            right_knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,
+                          landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
+            right_hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,
+                         landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
 
-            cv2.putText(image, f'Angle: {angle1:.2f}', (10, 30),
+            angle1 = calculate_angle(left_ankle, left_knee, left_hip)
+            angle2 = calculate_angle(right_ankle, right_knee, right_hip)
+
+            # Use the average of both legs' angles
+            avg_angle = (angle1 + angle2) / 2.0
+
+            cv2.putText(image, f'Avg Angle: {avg_angle:.2f}', (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-            if stage == "up" and angle1 < POSE_THRESHOLD:
+            if stage == "up" and avg_angle < POSE_THRESHOLD:
                 stage = "down"
-            elif stage == "down" and angle1 > 150:
+            elif stage == "down" and avg_angle > 150:
                 stage = "up"
                 count += 1
 
-            # Calculate accuracy as the percentage of how closely the detected angle matches the target angle
-            accuracy = 100.0 - abs(target_angle - angle1)
+            # Calculate accuracy as the percentage
+            accuracy = 100.0 - abs(target_angle - avg_angle)
             accuracy = max(accuracy, 0.0)
             accuracy = min(accuracy, 100.0)
 
