@@ -23,7 +23,7 @@ FitSense is an innovative AI-powered gym trainer that assists users in maintaini
 
 ## Technologies Used
 
-- [MediaPipe](https://mediapipe.dev/): For real-time pose estimation.
+- Mediapipe : For real-time pose estimation.
 - HTML, CSS, and JavaScript: Used to create the user interface and interact with the AI model.
 - OpenCV: Used for computer vision tasks, image processing, and real-time video analysis.
 - Flask: A micro web framework for routing and serving the web application.
