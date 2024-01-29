@@ -76,7 +76,3 @@ We welcome contributions from the open-source community. If you'd like to contri
 
 4. Open a pull request on the original repository.
 
-
-## Contact
-
-If you have any questions or suggestions, please feel free to reach out to us at [jayantghadge6@email.com](mailto:your@email.com).
