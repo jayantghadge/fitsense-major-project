@@ -59,7 +59,7 @@ FitSense is an innovative AI-powered gym trainer that assists users in maintaini
 
 ## Contributing
 
-We welcome contributions from the open-source community. If you'd like to contribute to Searchify, please follow these steps:
+If you'd like to contribute to Searchify, please follow these steps:
 
 1. Fork the repository.
 
